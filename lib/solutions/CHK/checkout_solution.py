@@ -8,4 +8,5 @@ def checkout(skus):
     :param skus:
     :return:
     """
+    print(skus)
 
