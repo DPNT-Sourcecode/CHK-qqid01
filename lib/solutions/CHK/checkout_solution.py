@@ -19,6 +19,7 @@ def price_promotion_calc(promotion_list, no_item, total_price, unit_price):
     else:
         return total_price + no_item * unit_price
 
+
 def item_promotion_calc(item, promo, shopping_bag):
     """
     Update shopping bag based on possible free items received
@@ -32,12 +33,13 @@ def item_promotion_calc(item, promo, shopping_bag):
     if free_item in shopping_bag:
         shopping_bag[free_item] = max(0, shopping_bag[free_item] - shopping_bag[item] // min_no_item)
 
+
 def special_promotion_calc(items_list, shopping_bag):
     """
-
-    :param items_list:
-    :param shopping_bag:
-    :return:
+    Calculate the special promotion withdrawing the more expensive elements first from the shopping bag
+    :param items_list: list of items impacted by the promotion
+    :param shopping_bag: current shopping bag
+    :return: price of promotions
     """
     no_special_items = shopping_bag['special']
     no_promo_applied = no_special_items // 3
@@ -52,7 +54,6 @@ def special_promotion_calc(items_list, shopping_bag):
     return no_promo_applied * 45
 
 
-
 def checkout(skus):
     """
     Supermarket checkout that calculates the total price based on different items purchased
@@ -65,7 +66,7 @@ def checkout(skus):
     price_promotion = {'A': [(5, 200), (3, 130)], 'B': [(2, 45)], 'H': [(10, 80), (5, 45)], 'K': [(2, 150)],
                        'P': [(5, 200)], 'Q': [(3, 80)], 'V': [(3, 130), (2, 90)]}
     item_promotion = {'E': (2, 'B'), 'F': (3, 'F'), 'N': (3, 'M'), 'R': (3, 'Q'), 'U': (4, 'U')}
-    #special promo item ordered by max to min price
+    #special promo items ordered by max to min price
     special_promo_items = ['Z', 'S', 'T', 'Y', 'X']
     shopping_bag = {}
     total_price = 0
@@ -77,7 +78,7 @@ def checkout(skus):
     for item in item_promotion:
         if item in shopping_bag:
             item_promotion_calc(item, item_promotion[item], shopping_bag)
-    #Compute the special promotions beforehand
+    #Compute the special promotions beforehand, updating the shopping bag
     total_price += special_promotion_calc(special_promo_items, shopping_bag)
     for item in shopping_bag:
         if item in price_promotion:
@@ -89,3 +90,4 @@ def checkout(skus):
                 return -1
 
     return total_price
+
