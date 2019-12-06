@@ -45,14 +45,12 @@ def special_promotion_calc(items_list, shopping_bag):
     no_promo_applied = no_special_items // 3
     # As the customer is always favoured we need to withdraw the more expensive items first
     no_item_in_promo = no_promo_applied * 3
-    while no_item_in_promo > 0:
-        for item in items_list:
-            if item in shopping_bag:
-                while shopping_bag[item] > 0:
-                    shopping_bag[item] -= 1
-                    no_item_in_promo -= 1
+    for item in items_list:
+        if item in shopping_bag:
+            while shopping_bag[item] > 0 and no_item_in_promo > 0:
+                shopping_bag[item] -= 1
+                no_item_in_promo -= 1
     del shopping_bag['special']
-    print(shopping_bag)
     return no_promo_applied * 45
 
 
@@ -94,5 +92,6 @@ def checkout(skus):
                 return -1
 
     return total_price
+
 
 
