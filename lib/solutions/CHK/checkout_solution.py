@@ -15,7 +15,7 @@ def promotion_price_calc(promotion_list, no_item, total_price, unit_price):
         no_item_promo, price_promo = promotion_list.pop(0)
         no_promo_applied = no_item // no_item_promo
         total_price += no_promo_applied * price_promo
-        return promotion_price_calc(promotion_list, no_item - no_promo_applied * no_item_promo, total_price, unit_price)
+        return promotion_price_calc(promotion_list, no_item - (no_promo_applied * no_item_promo), total_price, unit_price)
     else:
         return total_price + no_item * unit_price
 
@@ -36,7 +36,7 @@ def checkout(skus):
         shopping_bag['B'] = max(0, shopping_bag['B'] - shopping_bag.get('E', 0) // 2)
     for item in shopping_bag:
         if item in promotion:
-            total_price = promotion_price_calc(promotion[item], shopping_bag[item], 0, prices[item])
+            total_price += promotion_price_calc(promotion[item], shopping_bag[item], 0, prices[item])
         else:
             if item in prices:
                 total_price += shopping_bag[item] * prices[item]
@@ -44,4 +44,5 @@ def checkout(skus):
                 return -1
 
     return total_price
+
 
