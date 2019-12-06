@@ -30,7 +30,7 @@ def item_promotion_calc(item, promo, shopping_bag):
     free_item = promo[1]
     min_no_item = promo[0]
     if free_item in shopping_bag:
-        shopping_bag[free_item] = max(0, shopping_bag[free_item]) - shopping_bag[item] // min_no_item)
+        shopping_bag[free_item] = max(0, shopping_bag[free_item] - shopping_bag[item] // min_no_item)
 
 def checkout(skus):
     """
@@ -38,21 +38,20 @@ def checkout(skus):
     :param skus:
     :return:
     """
-    prices = {'A': 50, 'B': 30, 'C': 20, 'D': 15, 'E': 40, 'F': 10}
-    price_promotion = {'A': [(5, 200), (3, 130)], 'B': [(2, 45)]}
+    prices = {'A': 50, 'B': 30, 'C': 20, 'D': 15, 'E': 40, 'F': 10, 'G': 20, 'H': 10, 'I': 35, 'J': 60, 'K': 80, 'L': 90,
+              'M': 15, 'N': 40, 'O': 10, 'P': 50, 'Q': 30, 'R': 50, 'S': 30, 'T': 20, 'U': 40, 'V': 50, 'W': 20, 'X': 90,
+              'Y': 10, 'Z': 50}
+    price_promotion = {'A': [(5, 200), (3, 130)], 'B': [(2, 45)], 'H': [(10, 80), (5, 45)], 'K': [(2, 150)],
+                       'P': [(5, 200)], 'Q': [(3, 80)], 'V': [(2, 90), (3, 130)]}
     item_promotion = {'E': (2, 'B'), 'F': (3, 'F'), 'N': (3, 'M'), 'R': (3, 'Q'), 'U': (4, 'U')}
     shopping_bag = {}
     total_price = 0
     for item in skus:
         shopping_bag[item] = shopping_bag.get(item, 0) + 1
+    #Update shopping bag based on item promotions
     for item in item_promotion:
         if item in shopping_bag:
             item_promotion_calc(item, item_promotion[item], shopping_bag)
-    #You get one free B for 2 E bought or one F free for 3 F bought
-    if 'B' in shopping_bag:
-        shopping_bag['B'] = max(0, shopping_bag['B'] - shopping_bag.get('E', 0) // 2)
-    if 'F' in shopping_bag:
-        shopping_bag['F'] = max(0, shopping_bag['F'] - shopping_bag['F'] // 3)
     for item in shopping_bag:
         if item in price_promotion:
             total_price += promotion_price_calc(price_promotion[item], shopping_bag[item], 0, prices[item])
