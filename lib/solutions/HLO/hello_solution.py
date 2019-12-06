@@ -8,4 +8,4 @@ def hello(friend_name):
     :param friend_name: string
     :return: a string containing a message
     """
-    return f"Hello {friend_name}"
+    return f"Hello World!"
