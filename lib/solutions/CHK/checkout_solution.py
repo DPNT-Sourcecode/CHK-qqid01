@@ -2,7 +2,7 @@
 
 # noinspection PyUnusedLocal
 # skus = unicode string
-def promotion_price_calc(promotion_list, no_item, total_price, unit_price):
+def price_promotion_calc(promotion_list, no_item, total_price, unit_price):
     """
     Calculate the price based on the various promotions
     :param promotion_list: list of promotions to apply
@@ -15,7 +15,7 @@ def promotion_price_calc(promotion_list, no_item, total_price, unit_price):
         no_item_promo, price_promo = promotion_list.pop(0)
         no_promo_applied = no_item // no_item_promo
         total_price += no_promo_applied * price_promo
-        return promotion_price_calc(promotion_list, no_item - (no_promo_applied * no_item_promo), total_price, unit_price)
+        return price_promotion_calc(promotion_list, no_item - (no_promo_applied * no_item_promo), total_price, unit_price)
     else:
         return total_price + no_item * unit_price
 
@@ -54,7 +54,7 @@ def checkout(skus):
             item_promotion_calc(item, item_promotion[item], shopping_bag)
     for item in shopping_bag:
         if item in price_promotion:
-            total_price += promotion_price_calc(price_promotion[item], shopping_bag[item], 0, prices[item])
+            total_price += price_promotion_calc(price_promotion[item], shopping_bag[item], 0, prices[item])
         else:
             if item in prices:
                 total_price += shopping_bag[item] * prices[item]
@@ -62,5 +62,6 @@ def checkout(skus):
                 return -1
 
     return total_price
+
 
 
