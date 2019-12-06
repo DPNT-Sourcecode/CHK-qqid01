@@ -7,4 +7,3 @@ class TestChk():
 
     def test_chk_illegal_input(self):
         assert checkout_solution.checkout('AAAABEECD') == -1
-
