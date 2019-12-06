@@ -25,7 +25,7 @@ def checkout(skus):
     :param skus:
     :return:
     """
-    prices = {'A': 50, 'B': 30, 'C': 20, 'D': 15, 'E': 40}
+    prices = {'A': 50, 'B': 30, 'C': 20, 'D': 15, 'E': 40, 'F': 10}
     promotion = {'A': [(5, 200), (3, 130)], 'B': [(2, 45)]}
     shopping_bag = {}
     total_price = 0
@@ -34,6 +34,8 @@ def checkout(skus):
     # You get one free B for 2 E bought
     if 'B' in shopping_bag:
         shopping_bag['B'] = max(0, shopping_bag['B'] - shopping_bag.get('E', 0) // 2)
+    if 'F' in shopping_bag:
+        shopping_bag['F'] = max(0, shopping_bag['F'] - shopping_bag['F'] // 3)
     for item in shopping_bag:
         if item in promotion:
             total_price += promotion_price_calc(promotion[item], shopping_bag[item], 0, prices[item])
