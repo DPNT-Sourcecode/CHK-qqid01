@@ -8,12 +8,14 @@ def checkout(skus):
     :param skus:
     :return:
     """
-    prices = {'A': 50, 'B': 30, 'C': 20, 'D': 15}
+    prices = {'A': 50, 'B': 30, 'C': 20, 'D': 15, 'E': 40}
     promotion = {'A': (3, 130), 'B': (2, 45)}
     shopping_bag = {}
     total_price = 0
     for item in skus:
         shopping_bag[item] = shopping_bag.get(item, 0) + 1
+        if item == 'E':
+            shopping_bag['B'] = shopping_bag.get('B', 0) - 0.5
     for item in shopping_bag:
         if item in promotion:
             no_promotion = shopping_bag[item] // promotion[item][0]
