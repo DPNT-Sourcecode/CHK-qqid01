@@ -16,4 +16,3 @@ class TestChk():
 
     def test_chk_illegal_input(self):
         assert checkout_solution.checkout('AAAABZZCD') == -1
-
