@@ -31,7 +31,7 @@ def checkout(skus):
     total_price = 0
     for item in skus:
         shopping_bag[item] = shopping_bag.get(item, 0) + 1
-    # You get one free B for 2 E bought
+    #You get one free B for 2 E bought or one F free for 3 F bought
     if 'B' in shopping_bag:
         shopping_bag['B'] = max(0, shopping_bag['B'] - shopping_bag.get('E', 0) // 2)
     if 'F' in shopping_bag:
@@ -46,3 +46,4 @@ def checkout(skus):
                 return -1
 
     return total_price
+
