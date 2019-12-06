@@ -9,4 +9,3 @@ def checkout(skus):
     :return:
     """
     print(skus)
-
