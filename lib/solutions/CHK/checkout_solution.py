@@ -13,12 +13,16 @@ def checkout(skus):
     shopping_bag = {}
     total_price = 0
     for item in skus:
-        shopping_bag[item] += shopping_bag.get(item, 0) + 1
+        shopping_bag[item] = shopping_bag.get(item, 0) + 1
     for item in shopping_bag:
         if item in promotion:
             no_promotion = shopping_bag[item] // promotion[item][0]
             total_price += no_promotion * promotion[item][1] + (shopping_bag[item] - promotion[item][0] * no_promotion) * prices[item]
         else:
-            total_price += shopping_bag[item] * prices[item]
+            if item in prices:
+                total_price += shopping_bag[item] * prices[item]
+            else:
+                return -1
 
     return total_price
+
